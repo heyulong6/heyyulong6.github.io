@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeniorRide - 老年人友好出行应用</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        ▪ {
+
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #ff9800;
+            --background-color: #f5f5f5;
+            --card-color: #ffffff;
+            --text-color: #333333;
+            --text-light: #666666;
+            --border-radius: 12px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            font-size: 18px;
+            transition: var(--transition);
+            padding-bottom: 85px;
+        }
+        
+        .high-contrast {
+            --primary-color: #000000;
+            --secondary-color: #ffff00;
+            --background-color: #000000;
+            --card-color: #222222;
+            --text-color: #ffffff;
+            --text-light: #cccccc;
+        }
+        
+        .large-text {
+            font-size: 22px;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: var(--card-color);
+            min-height: 100vh;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Header section */
+        .header {
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary-color), #0056b3);
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+        
+        .app-title {
+            font-size: 2.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .app-subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        
+        .promo-banner {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 12px;
+            border-radius: var(--border-radius);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1em;
+        }
+        
+        /* Search section */
+        .search-section {
+            padding: 20px;
+            background-color: #f0f7ff;
+        }
+        
+        .search-box {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 18px;
+            font-size: 1.2em;
+            border: 2px solid var(--primary-color);
+            border-radius: var(--border-radius) 0 0 var(--border-radius);
+            outline: none;
+            background-color: var(--card-color);
+            color: var(--text-color);
+        }
+        
+        .search-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0 25px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            font-size: 1.1em;
+            cursor: pointer;
+        }
+        
+        .later-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            font-size: 1.1em;
+            width: 100%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Saved addresses section */
+        .saved-addresses {
+            padding: 20px;
+        }
+        
+        .section-title {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .address-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background-color: var(--card-color);
+            margin-bottom: 12px;
+            border-radius: var(--border-radius);
+            border-left: 5px solid var(--primary-color);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .address-item:hover {
+            background-color: #e8f4fc;
+        }
+        
+        .address-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #e3f2fd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.5em;
+        }
+        
+        .address-text {
+            flex: 1;
+        }
+        
+        .address-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .address-details {
+            font-size: 1em;
+            color: var(--text-light);
+        }
+        
+        /* Services section */
+        .services-section {
+            padding: 20px;
+            background-color: #f0f7ff;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .service-item {
+            background-color: var(--card-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .service-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .service-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .service-name {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        
+        /* Bottom navigation - 增大高度 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            background-color: var(--primary-color);
+            padding: 20px 0px;
+            z-index: 998;
+            height: 85px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .nav-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.3em;
+            padding: 10px 5px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            min-width: 0;
+        }
+        
+        .nav-btn.active {
+            color: var(--secondary-color);
+        }
+        
+        .nav-icon {
+            font-size: 2.2em;
+            margin-bottom: 8px;
+        }
+        
+        /* 移除首页语言选择器 */
+        .language-selector {
+            display: none;
+        }
+        
+        /* 个人资料页语言选择器 */
+        .profile-language-selector {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .language-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: var(--transition);
+        }
+        
+        .language-btn.active {
+            background: var(--secondary-color);
+        }
+        
+        /* Accessibility panel */
+        .accessibility-panel {
+            position: fixed;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            background-color: var(--primary-color);
+            border-radius: 10px 0 0 10px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 999;
+        }
+        
+        .accessibility-btn {
+            background: var(--card-color);
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .accessibility-btn.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .font-slider-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            font-size: 0.9em;
+        }
+        
+        #fontSizeSlider {
+            width: 100px;
+            height: 8px;
+            accent-color: white;
+            cursor: pointer;
+        }
+        
+        /* Page sections */
+        .page {
+            display: none;
+            padding: 20px;
+            min-height: calc(100vh - 85px);
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        /* Bookings page */
+        .booking-item {
+            background-color: var(--card-color);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: var(--shadow);
+        }
+        
+        .booking-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .booking-title {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+        
+        .booking-status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        
+        .status-confirmed {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .status-pending {
+            background-color: #fff3e0;
+            color: #ef6c00;
+        }
+        
+        .booking-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .detail-label {
+            font-size: 0.9em;
+            color: var(--text-light);
+        }
+        
+        .detail-value {
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        
+        /* Profile page */
+        .profile-header {
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            color: white;
+        }
+        
+        .profile-name {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .profile-info {
+            background-color: var(--card-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eeeeee;
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            color: var(--text-light);
+        }
+        
+        .info-value {
+            font-weight: bold;
+        }
+        
+        .profile-actions {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        
+        .action-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .action-btn.secondary {
+            background-color: #e0e0e0;
+            color: var(--text-color);
+        }
+        
+        /* Speech status indicator */
+        .speech-status {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 1em;
+            display: none;
+            z-index: 1001;
+        }
+        
+        /* Responsive design */
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 1200px;
+                margin: 20px auto;
+                border-radius: var(--border-radius);
+                min-height: calc(100vh - 40px);
+            }
+            
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .booking-details {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .profile-actions {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .saved-addresses, .services-section, .search-section {
+                padding: 20px 40px;
+            }
+    
+        }
+        
+        @media (max-width: 500px) {
+            body {
+                font-size: 16px;
+                padding-bottom: 95px;
+            }
+            
+            .container {
+                max-width: 100%;
+                box-shadow: none;
+                padding: 0;8
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bottom-nav {
+                max-width: 100%;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="app-container">
+        <!-- Speech status indicator -->
+        <div class="speech-status" id="speech-status">Speech Active - Click to Stop</div>
+        
+        <!-- Accessibility panel -->
+        <div class="accessibility-panel">
+            <div class="font-slider-container">
+                <span id="text-size-label">Text Size</span>
+                <input type="range" id="fontSizeSlider" min="16" max="28" value="18" step="2">
+            </div>
+            <button class="accessibility-btn" id="contrast-btn" title="High contrast mode">◐</button>
+            <button class="accessibility-btn" id="speech-btn" title="Toggle text-to-speech">🔊</button>
+        </div>
+        
+        <!-- Home Page -->
+        <div class="page active" id="home-page">
+            <!-- Header section - 移除了状态栏 -->
+            <div class="header">
+                <div class="app-title" data-key="title">SeniorRide</div>
+                <div class="app-subtitle" data-key="subtitle">Arrange your ride for important moments. On time, reliable.</div>
+                <div class="promo-banner">
+                    <span data-key="promo">Try it now, 10% discount</span>
+                    <span>→</span>
+                </div>
+            </div>
+            
+            <!-- Search section -->
+            <div class="search-section">
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Where to?" data-key="searchPlaceholder" id="destination-input">
+                    <button class="search-btn" data-key="searchBtn">Search</button>
+                </div>
+                <button class="later-btn">
+                    <span>⏰</span>
+                    <span data-key="laterBtn">Schedule for Later</span>
+                </button>
+            </div>
+            
+            <!-- Saved addresses section -->
+            <div class="saved-addresses">
+                <div class="section-title" data-key="addressesTitle">Saved Addresses</div>
+                
+                <div class="address-item" data-speech="DoubleTree by Hilton Kuala Lumpur">
+                    <div class="address-icon">🏨</div>
+                    <div class="address-text">
+                        <div class="address-name" data-key="address1">DoubleTree by Hilton Kuala Lumpur</div>
+                        <div class="address-details">The Intermark, 348, Jalan Tun Razak, Kuala Lumpur</div>
+                    </div>
+                </div>
+                
+                <div class="address-item" data-speech="VEC Veterinary Clinic">
+                    <div class="address-icon">🏥</div>
+                    <div class="address-text">
+                        <div class="address-name" data-key="address2">VEC Veterinary Clinic</div>
+                        <div class="address-details">Sunsuria Avenue, 3A-G, 5-G & 6-G, Persiaran M</div>
+                    </div>
+                </div>
+                
+                <div class="address-item" data-speech="Home">
+                    <div class="address-icon">🏠</div>
+                    <div class="address-text">
+                        <div class="address-name" data-key="address3">Home</div>
+                        <div class="address-details">Laurent Bleu Medical Clinic - CMC Center, Jalan C</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Services section -->
+            <div class="services-section">
+                <div class="section-title" data-key="servicesTitle">Various travel services for all your needs</div>
+                
+                <div class="services-grid">
+                    <div class="service-item" data-speech="Advance Booking">
+                        <div class="service-icon">📅</div>
+                        <div class="service-name" data-key="service1">Advance Booking</div>
+                    </div>
+                    
+                    <div class="service-item" data-speech="6-Seater Car">
+                        <div class="service-icon">🚐</div>
+                        <div class="service-name" data-key="service2">6-Seater Car</div>
+                    </div>
+                    
+                    <div class="service-item" data-speech="Family Booking">
+                        <div class="service-icon">👨👩👧👦</div>
+                        <div class="service-name" data-key="service3">Family Booking</div>
+                    </div>
+                    
+                    <div class="service-item" data-speech="Hourly Rental">
+                        <div class="service-icon">⏱️</div>
+                        <div class="service-name" data-key="service4">Hourly Rental</div>
+                    </div>
+                    
+                    <div class="service-item" data-speech="Airport Pickup">
+                        <div class="service-icon">✈️</div>
+                        <div class="service-name" data-key="service5">Airport Pickup</div>
+                    </div>
+                    
+                    <div class="service-item" data-speech="Advance Travel">
+                        <div class="service-icon">🚗</div>
+                        <div class="service-name" data-key="service6">Advance Travel</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bookings Page -->
+        <div class="page" id="bookings-page">
+            <div class="section-title" data-key="bookingsTitle">My Bookings</div>
+            
+            <div class="booking-item">
+                <div class="booking-header">
+                    <div class="booking-title" data-key="booking1">Airport Transfer</div>
+                    <div class="booking-status status-confirmed" data-key="confirmed">Confirmed</div>
+                </div>
+                <div class="booking-details">
+                    <div class="detail-item">
+                        <span class="detail-label" data-key="date">Date</span>
+                        <span class="detail-value">15 Oct 2023</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label" data-key="time">Time</span>
+                        <span class="detail-value">14:30</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label" data-key="from">From</span>
+                        <span class="detail-value">Home</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label" data-key="to">To</span>
+                        <span class="detail-value">Kuala Lumpur Airport</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="booking-item">
+                <div class="booking-header">
+                    <div class="booking-title" data-key="booking2">Doctor Appointment</div>
+                    <div class="booking-status status-pending" data-key="pending">Pending</div>
+                </div>
+                <div class="booking-details">
+                    <div class="detail-item">
+                        <span class="detail-label" data-key="date">Date</span>
+                        <span class="detail-value">18 Oct 2023</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label" data-key="time">Time</span>
+                        <span class="detail-value">10:00</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label" data-key="from">From</span>
+                        <span class="detail-value">Home</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label" data-key="to">To</span>
+                        <span class="detail-value">General Hospital</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="booking-item">
+                <div class="booking-header">
+                    <div class="booking-title" data-key="booking3">Family Outing</div>
+                    <div class="booking-status status-confirmed" data-key="confirmed">Confirmed</div>
+                </div>
+                <div class="booking-details">
+                    <div class="detail-item">
+                        <span class="detail-label" data-key="date">Date</span>
+                        <span class="detail-value">22 Oct 2023</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label" data-key="time">Time</span>
+                        <span class="detail-value">09:00</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label" data-key="from">From</span>
+                        <span class="detail-value">Home</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label" data-key="to">To</span>
+                        <span class="detail-value">Shopping Mall</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Profile Page -->
+        <div class="page" id="profile-page">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="profile-name" data-key="userName">John Smith</div>
+                <div class="app-subtitle" data-key="memberSince">Member since 2020</div>
+            </div>
+            
+            <div class="profile-info">
+                <div class="info-item">
+                    <span class="info-label" data-key="email">Email</span>
+                    <span class="info-value">john.smith@example.com</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label" data-key="phone">Phone</span>
+                    <span class="info-value">+60 12 345 6789</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label" data-key="preferredLanguage">Preferred Language</span>
+                    <span class="info-value" id="current-language-display">English</span>
+                    <div class="profile-language-selector">
+                        <button class="language-btn active" id="lang-en">EN</button>
+                        <button class="language-btn" id="lang-zh">中文</button>
+                        <button class="language-btn" id="lang-ms">BM</button>
+                        <button class="language-btn" id="lang-id">ID</button>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-label" data-key="totalRides">Total Rides</span>
+                    <span class="info-value">47</span>
+                </div>
+            </div>
+            
+            <div class="profile-actions">
+                <button class="action-btn" data-key="editProfile">Edit Profile</button>
+                <button class="action-btn secondary" data-key="paymentMethods">Payment Methods</button>
+                <button class="action-btn secondary" data-key="rideHistory">Ride History</button>
+                <button class="action-btn secondary" data-key="helpSupport">Help & Support</button>
+            </div>
+        </div>
+        
+        <!-- Bottom navigation - 与页面同宽 -->
+        <div class="bottom-nav">
+            <button class="nav-btn active" id="nav-home">
+                <span class="nav-icon">🏠</span>
+                <span data-key="home">Home</span>
+            </button>
+            <button class="nav-btn" id="nav-bookings">
+                <span class="nav-icon">📖</span>
+                <span data-key="bookings">Bookings</span>
+            </button>
+            <button class="nav-btn" id="nav-profile">
+                <span class="nav-icon">👤</span>
+                <span data-key="profile">Profile</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Language data
+        const translations = {
+            en: {
+                title: "SeniorRide",
+                subtitle: "Arrange your ride for important moments. On time, reliable.",
+                promo: "Try it now, 10% discount",
+                searchPlaceholder: "Where to?",
+                searchBtn: "Search",
+                laterBtn: "Schedule for Later",
+                addressesTitle: "Saved Addresses",
+                servicesTitle: "Various travel services for all your needs",
+                home: "Home",
+                bookings: "Bookings",
+                profile: "Profile",
+                bookingsTitle: "My Bookings",
+                booking1: "Airport Transfer",
+                booking2: "Doctor Appointment",
+                booking3: "Family Outing",
+                confirmed: "Confirmed",
+                pending: "Pending",
+                date: "Date",
+                time: "Time",
+                from: "From",
+                to: "To",
+                userName: "John Smith",
+                memberSince: "Member since 2020",
+                email: "Email",
+                phone: "Phone",
+                preferredLanguage: "Preferred Language",
+                totalRides: "Total Rides",
+                editProfile: "Edit Profile",
+                paymentMethods: "Payment Methods",
+                rideHistory: "Ride History",
+                helpSupport: "Help & Support",
+                address1: "DoubleTree by Hilton Kuala Lumpur",
+                address2: "VEC Veterinary Clinic",
+                address3: "Home",
+                service1: "Advance Booking",
+                service2: "6-Seater Car",
+                service3: "Family Booking",
+                service4: "Hourly Rental",
+                service5: "Airport Pickup",
+                service6: "Advance Travel",
+                textSize: "Text Size",
+                speechActive: "Speech Active - Click to Stop",
+                speechInactive: "Speech Inactive - Click to Activate"
+            },
+            zh: {
+                title: "老年出行",
+                subtitle: "为重要时刻安排出行。准时可靠。",
+                promo: "立即尝试，享受10%折扣",
+                searchPlaceholder: "去哪里？",
+                searchBtn: "搜索",
+                laterBtn: "稍后安排",
+                addressesTitle: "保存的地址",
+                servicesTitle: "满足您一切需求的各种出行服务",
+                home: "首页",
+                bookings: "预订",
+                profile: "个人资料",
+                bookingsTitle: "我的预订",
+                booking1: "机场接送",
+                booking2: "医生预约",
+                booking3: "家庭出游",
+                confirmed: "已确认",
+                pending: "待处理",
+                date: "日期",
+                time: "时间",
+                from: "出发地",
+                to: "目的地",
+                userName: "张三",
+                memberSince: "自2020年起成为会员",
+                email: "电子邮件",
+                phone: "电话",
+                preferredLanguage: "首选语言",
+                totalRides: "总行程数",
+                editProfile: "编辑个人资料",
+                paymentMethods: "支付方式",
+                rideHistory: "行程历史",
+                helpSupport: "帮助与支持",
+                address1: "吉隆坡希尔顿逸林酒店",
+                address2: "VEC兽医诊所",
+                address3: "家",
+                service1: "提前预订",
+                service2: "6座汽车",
+                service3: "家庭预订",
+                service4: "按小时租车",
+                service5: "机场接载",
+                service6: "提前预订出行",
+                textSize: "文字大小",
+                speechActive: "语音激活 - 点击停止",
+                speechInactive: "语音未激活 - 点击激活"
+            },
+            ms: {
+                title: "Perjalanan Warga Emas",
+                subtitle: "Atur perjalanan anda untuk saat-saat penting. Tepat masa, boleh dipercayai.",
+                promo: "Cuba sekarang, diskaun 10%",
+                searchPlaceholder: "Ke mana?",
+                searchBtn: "Cari",
+                laterBtn: "Jadual untuk Kemudian",
+                addressesTitle: "Alamat Disimpan",
+                servicesTitle: "Pelbagai perkhidmatan perjalanan untuk semua keperluan anda",
+                home: "Laman Utama",
+                bookings: "Tempahan",
+                profile: "Profil",
+                bookingsTitle: "Tempahan Saya",
+                booking1: "Pemindahan Lapangan Terbang",
+                booking2: "Temu Janji Doktor",
+                booking3: "Lawatan Keluarga",
+                confirmed: "Disahkan",
+                pending: "Belum Selesai",
+                date: "Tarikh",
+                time: "Masa",
+                from: "Dari",
+                to: "Ke",
+                userName: "Ahmad bin Abdullah",
+                memberSince: "Ahli sejak 2020",
+                email: "E-mel",
+                phone: "Telefon",
+                preferredLanguage: "Bahasa Pilihan",
+                totalRides: "Jumlah Perjalanan",
+                editProfile: "Edit Profil",
+                paymentMethods: "Kaedah Pembayaran",
+                rideHistory: "Sejarah Perjalanan",
+                helpSupport: "Bantuan & Sokongan",
+                address1: "DoubleTree oleh Hilton Kuala Lumpur",
+                address2: "Klinik Veterinar VEC",
+                address3: "Rumah",
+                service1: "Tempahan Awal",
+                service2: "Kereta 6 Tempat Duduk",
+                service3: "Tempahan Keluarga",
+                service4: "Sewa Mengikut Jam",
+                service5: "Pengambilan Lapangan Terbang",
+                service6: "Perjalanan Awal",
+                textSize: "Saiz Teks",
+                speechActive: "Pertuturan Aktif - Klik untuk Berhenti",
+                speechInactive: "Pertuturan Tidak Aktif - Klik untuk Aktifkan"
+            },
+            id: {
+                title: "Perjalanan Lansia",
+                subtitle: "Atur perjalanan Anda untuk momen penting. Tepat waktu, andal.",
+                promo: "Coba sekarang, diskon 10%",
+                searchPlaceholder: "Ke mana?",
+                searchBtn: "Cari",
+                laterBtn: "Jadwalkan untuk Nanti",
+                addressesTitle: "Alamat Tersimpan",
+                servicesTitle: "Berbagai layanan perjalanan untuk semua kebutuhan Anda",
+                home: "Beranda",
+                bookings: "Pemesanan",
+                profile: "Profil",
+                bookingsTitle: "Pemesanan Saya",
+                booking1: "Transfer Bandara",
+                booking2: "Janji Temu Dokter",
+                booking3: "Jalan-jalan Keluarga",
+                confirmed: "Dikonfirmasi",
+                pending: "Tertunda",
+                date: "Tanggal",
+                time: "Waktu",
+                from: "Dari",
+                to: "Ke",
+                userName: "Budi Santoso",
+                memberSince: "Anggota sejak 2020",
+                email: "Email",
+                phone: "Telepon",
+                preferredLanguage: "Bahasa Pilihan",
+                totalRides: "Total Perjalanan",
+                editProfile: "Edit Profil",
+                paymentMethods: "Metode Pembayaran",
+                rideHistory: "Riwayat Perjalanan",
+                helpSupport: "Bantuan & Dukungan",
+                address1: "DoubleTree oleh Hilton Kuala Lumpur",
+                address2: "Klinik Hewan VEC",
+                address3: "Rumah",
+                service1: "Pemesanan di Muka",
+                service2: "Mobil 6 Penumpang",
+                service3: "Pemesanan Keluarga",
+                service4: "Sewa Per Jam",
+                service5: "Penjemputan Bandara",
+                service6: "Perjalanan di Muka",
+                textSize: "Ukuran Teks",
+                speechActive: "Ucapan Aktif - Klik untuk Berhenti",
+                speechInactive: "Ucapan Tidak Aktif - Klik untuk Aktifkan"
+            }
+        };
+
+        // Current language
+        let currentLang = 'en';
+        
+        // Speech synthesis state
+        let speechActive = false;
+        let currentUtterance = null;
+        
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            initAccessibility();
+            initNavigation();
+            initLanguage();
+            initSpeech();
+        });
+        
+        // Initialize accessibility features
+        function initAccessibility() {
+            // Font size slider
+            const fontSizeSlider = document.getElementById('fontSizeSlider');
+            fontSizeSlider.addEventListener('input', function() {
+                document.body.style.fontSize = this.value + 'px';
+                if (this.value > 20) {
+                    document.body.classList.add('large-text');
+                } else {
+                    document.body.classList.remove('large-text');
+                }
+            });
+            
+            // High contrast mode
+            const contrastBtn = document.getElementById('contrast-btn');
+            contrastBtn.addEventListener('click', function() {
+                document.body.classList.toggle('high-contrast');
+            });
+        }
+        
+        // Initialize navigation
+        function initNavigation() {
+            // Navigation buttons
+            document.getElementById('nav-home').addEventListener('click', function() {
+                showPage('home-page');
+                setActiveNav(this);
+            });
+            
+            document.getElementById('nav-bookings').addEventListener('click', function() {
+                showPage('bookings-page');
+                setActiveNav(this);
+            });
+            
+            document.getElementById('nav-profile').addEventListener('click', function() {
+                showPage('profile-page');
+                setActiveNav(this);
+            });
+        }
+        
+        // Show specific page
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+        
+        // Set active navigation button
+        function setActiveNav(activeButton) {
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            activeButton.classList.add('active');
+        }
+        
+        // Initialize language system
+        function initLanguage() {
+            // Set up language buttons
+            document.getElementById('lang-en').addEventListener('click', function() {
+                switchLanguage('en');
+            });
+            
+            document.getElementById('lang-zh').addEventListener('click', function() {
+                switchLanguage('zh');
+            });
+            
+            document.getElementById('lang-ms').addEventListener('click', function() {
+                switchLanguage('ms');
+            });
+            
+            document.getElementById('lang-id').addEventListener('click', function() {
+                switchLanguage('id');
+            });
+        }
+        
+        // Switch language
+        function switchLanguage(lang) {
+            currentLang = lang;
+            
+            // Update active language button
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`lang-${lang}`).classList.add('active');
+            
+            // Update current language display
+            const languageDisplay = document.getElementById('current-language-display');
+            if (lang === 'en') languageDisplay.textContent = 'English';
+            else if (lang === 'zh') languageDisplay.textContent = '中文';
+            else if (lang === 'ms') languageDisplay.textContent = 'Bahasa Melayu';
+            else if (lang === 'id') languageDisplay.textContent = 'Bahasa Indonesia';
+            
+            // Update all translatable elements
+            const data = translations[lang];
+            
+            // Update elements with data-key attribute
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (data[key]) {
+                    if (element.placeholder !== undefined) {
+                        element.placeholder = data[key];
+                    } else {
+                        element.textContent = data[key];
+                    }
+                }
+            });
+            
+            // Update text size label separately
+            document.getElementById('text-size-label').textContent = data.textSize;
+            
+            speakText(`Language switched to ${lang === 'en' ? 'English' : lang === 'zh' ? 'Chinese' : lang === 'ms' ? 'Malay' : 'Indonesian'}`);
+        }
+        
+        // Initialize speech system
+        function initSpeech() {
+            const speechBtn = document.getElementById('speech-btn');
+            const speechStatus = document.getElementById('speech-status');
+            
+            // Toggle speech on/off
+            speechBtn.addEventListener('click', function() {
+                speechActive = !speechActive;
+                
+                if (speechActive) {
+                    speechBtn.classList.add('active');
+                    speechStatus.textContent = translations[currentLang].speechActive;
+                    speechStatus.style.display = 'block';
+                    speakText("Speech assistance activated. Click on any element to hear its description.");
+                } else {
+                    speechBtn.classList.remove('active');
+                    speechStatus.textContent = translations[currentLang].speechInactive;
+                    setTimeout(() => {
+                        speechStatus.style.display = 'none';
+                    }, 2000);
+                    stopSpeech();
+                    speakText("Speech assistance deactivated.");
+                }
+            });
+            
+            // Add click-to-speak functionality to interactive elements
+            document.querySelectorAll('.address-item, .service-item, .nav-btn, .search-btn, .later-btn, .booking-item, .action-btn').forEach(element => {
+                element.addEventListener('click', function() {
+                    if (speechActive) {
+                        const text = this.getAttribute('data-speech') || 
+                                    this.textContent || 
+                                    this.querySelector('.address-name, .service-name, .booking-title, .profile-name')?.textContent;
+                        if (text) {
+                            speakText(text);
+                        }
+                    }
+                });
+            });
+            
+            // Add click-to-speak for promotional banner
+            document.querySelector('.promo-banner').addEventListener('click', function() {
+                if (speechActive) {
+                    speakText("Special offer. Try it now with a ten percent discount.");
+                }
+            });
+        }
+        
+        // Speak text
+        function speakText(text) {
+            if (!speechActive) return;
+            
+            // Stop any current speech
+            stopSpeech();
+            
+            if ('speechSynthesis' in window) {
+                currentUtterance = new SpeechSynthesisUtterance(text);
+                
+                // Set speech properties for better senior accessibility
+                currentUtterance.rate = 0.8;
+                currentUtterance.pitch = 1.0;
+                currentUtterance.volume = 1.0;
+                
+                currentUtterance.onend = function() {
+                    currentUtterance = null;
+                };
+                
+                window.speechSynthesis.speak(currentUtterance);
+            }
+        }
+        
+        // Stop speech
+        function stopSpeech() {
+            if (window.speechSynthesis) {
+                window.speechSynthesis.cancel();
+            }
+            currentUtterance = null;
+        }
+    </script>
+</body>
+</html>
